@@ -723,15 +723,7 @@
       color: var(--brand-accent);
     }
 
-    .quick-add-badge {
-      font-size: 0.78rem;
-      background: var(--brand-glow);
-      color: var(--brand-accent);
-      padding: 0.2rem 0.65rem;
-      border-radius: 9999px;
-      font-weight: 700;
-      border: 1px solid var(--brand-accent);
-    }
+    
 
     .quick-add-form {
       display: flex;
@@ -845,6 +837,79 @@
         grid-template-columns: 1fr;
       }
     }
+  
+    /* بطاقة تسجيل دخول المالك */
+    .login-card {
+      max-width: 380px;
+      margin: 2.5rem auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.2rem 1.8rem;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .login-icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 1rem;
+      background: var(--brand-glow);
+      color: var(--brand-accent);
+      border: 1px solid var(--brand-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.3rem;
+    }
+
+    .login-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-size: 1rem;
+      font-family: inherit;
+      background: var(--bg-body);
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-main);
+      text-align: center;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .login-input:focus {
+      border-color: var(--brand-accent);
+      box-shadow: 0 0 0 3px var(--brand-glow);
+      background: var(--bg-surface);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 0.85rem;
+      font-weight: 700;
+      justify-content: center;
+    }
+
   </style>
 </head>
 <body>
@@ -859,22 +924,31 @@
       </button>
 
       <!-- أدوات المالك: تظهر لك فقط وتختفي تماماً عن الزوار في رابط المشاركة -->
-      <div id="adminActions" class="admin-controls">
-        <button type="button" id="openManageBtn" class="btn btn-admin">
+            <!-- أدوات المالك (تظهر فقط بعد إدخال كلمة المرور) -->
+      <div id="adminActions" class="admin-controls" style="display: none;">
+        <button type="button" id="shareSearchLinkBtn" class="btn btn-share" title="نسخ رابط صفحة البحث للجمهور">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+          <span>نسخ رابط صفحة البحث</span>
+        </button>
+
+        <button type="button" id="openManageBtn" class="btn btn-admin" title="فتح نافذة تعديل القائمة بشكل جماعي">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 20h9"></path>
             <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
           </svg>
-          <span>إدارة المستخدمين</span>
+          <span>تعديل جماعي</span>
         </button>
 
-        <button type="button" id="shareLinkBtn" class="btn btn-share" title="نسخ رابط المشاركة للزوار">
+        <button type="button" id="logoutBtn" class="btn btn-admin" title="تسجيل الخروج والعودة لصفحة الدخول" style="color: var(--danger);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-            <polyline points="16 6 12 2 8 6"></polyline>
-            <line x1="12" y1="2" x2="12" y2="15"></line>
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
           </svg>
-          <span>نسخ رابط المشاركة</span>
+          <span>خروج</span>
         </button>
       </div>
     </div>
@@ -897,7 +971,7 @@
       <div>
         <span class="portal-badge" id="roleBadge">
           <span>✦</span>
-          <span id="roleText">تحقق من حسابك أو ابحث عن اسمك</span>
+          <span id="roleText">ابحث عن اسمك</span>
           <span>✦</span>
         </span>
       </div>
@@ -914,6 +988,31 @@
     </header>
 
     <!-- بطاقة إضافة مستخدم جديد واحد تلو الآخر (خاص بالمالك) -->
+        <!-- بطاقة تسجيل دخول المالك -->
+    <section id="loginSection" class="login-card" style="display: none;" aria-label="تسجيل دخول المالك">
+      <div class="login-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h2 class="login-title">لوحة المالك (Owner)</h2>
+      <p class="login-subtitle">أدخل كلمة المرور لإدارة المستخدمين</p>
+      <form id="loginForm" class="login-form" onsubmit="event.preventDefault(); handleLogin();">
+        <input 
+          type="password" 
+          id="passwordInput" 
+          class="login-input" 
+          placeholder="كلمة المرور..." 
+          autocomplete="current-password"
+        >
+        <button type="submit" class="btn btn-share login-btn">
+          <span>دخول</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- قسم إضافة مستخدم جديد (للمالك فقط) -->
     <section id="adminQuickAdd" class="admin-quick-add-card" style="display: none;" aria-label="إضافة مستخدم جديد">
       <div class="quick-add-header">
         <div class="quick-add-title">
@@ -923,16 +1022,15 @@
             <line x1="20" y1="8" x2="20" y2="14"></line>
             <line x1="23" y1="11" x2="17" y2="11"></line>
           </svg>
-          <span>إضافة مستخدم جديد (Add New User)</span>
+          <span>إضافة مستخدم جديد</span>
         </div>
-        <span class="quick-add-badge">يُحدث القائمة والرابط تلقائياً</span>
       </div>
       <form id="quickAddForm" class="quick-add-form" onsubmit="event.preventDefault(); addNewUser();">
         <input 
           type="text" 
           id="newUserInput" 
           class="quick-add-input" 
-          placeholder="اكتب اسم الحساب الجديد هنا (مثال: @username)..." 
+          placeholder="اسم المستخدم الجديد (مثال: @username)..." 
           autocomplete="off"
         >
         <button type="submit" id="quickAddBtn" class="btn btn-share quick-add-btn">
@@ -940,7 +1038,7 @@
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
-          <span>إضافة الآن</span>
+          <span>إضافة</span>
         </button>
       </form>
     </section>
@@ -1211,17 +1309,26 @@
       "ليلى الحربي", "محمد الشمري"
     ]);
 
+    const AUTH_PASS = "kanutosama";
+    const AUTH_KEY = "arcadia_owner_pass_session";
+
     let currentUsers = [];
-    let isAdmin = false;
+    let isOwner = false;
+    let isSearchPage = false;
 
     // عناصر الصفحة
+    const loginSection = document.getElementById("loginSection");
+    const passwordInput = document.getElementById("passwordInput");
     const adminActions = document.getElementById("adminActions");
     const adminQuickAdd = document.getElementById("adminQuickAdd");
     const newUserInput = document.getElementById("newUserInput");
     const quickAddBtn = document.getElementById("quickAddBtn");
-    const downloadHtmlBtn = document.getElementById("downloadHtmlBtn");
-    const exitAdminBtn = document.getElementById("exitAdminBtn");
+    const shareSearchLinkBtn = document.getElementById("shareSearchLinkBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
 
+    const searchCardSection = document.querySelector(".search-card");
+    const mainSection = document.querySelector("main");
+    const roleBadge = document.getElementById("roleBadge");
     const roleText = document.getElementById("roleText");
     const searchInput = document.getElementById("searchInput");
     const clearBtn = document.getElementById("clearBtn");
@@ -1242,7 +1349,6 @@
     const usersTextarea = document.getElementById("usersTextarea");
     const modalUsersCount = document.getElementById("modalUsersCount");
     const loadSampleUsersBtn = document.getElementById("loadSampleUsersBtn");
-    const shareLinkBtn = document.getElementById("shareLinkBtn");
     const toast = document.getElementById("toast");
     const toastMsg = document.getElementById("toastMsg");
 
@@ -1258,6 +1364,33 @@
       } catch (e) {
         console.warn("Storage error", e);
       }
+    }
+
+    /* تسجيل دخول المالك بكلمة المرور kanutosama */
+    function handleLogin() {
+      const pass = (passwordInput.value || "").trim();
+      if (pass === AUTH_PASS) {
+        sessionStorage.setItem(AUTH_KEY, "true");
+        localStorage.setItem(AUTH_KEY, "true");
+        passwordInput.value = "";
+        showToast("مرحباً بك! تم تسجيل الدخول إلى لوحة المالك.");
+        initializeApp();
+      } else {
+        showToast("⚠️ كلمة المرور غير صحيحة!");
+        passwordInput.focus();
+        passwordInput.select();
+      }
+    }
+
+    /* تسجيل الخروج والعودة لشاشة الدخول */
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        sessionStorage.removeItem(AUTH_KEY);
+        localStorage.removeItem(AUTH_KEY);
+        isOwner = false;
+        showToast("تم تسجيل الخروج بنجاح.");
+        initializeApp();
+      });
     }
 
     let indexedUsers = [];
@@ -1291,7 +1424,7 @@
       if (filtered.length === 0) {
         usersListEl.innerHTML = "";
         emptyStateEl.classList.add("active");
-        emptyDescEl.innerHTML = `لم نتمكن من العثور على أي حساب مطابق لـ <strong>"${escapeHtml(searchInput.value)}"</strong> في سجل أركاديا.`;
+        emptyDescEl.innerHTML = `لم نتمكن من العثور على أي حساب مطابق لـ <strong>"${escapeHtml(searchInput.value)}"</strong>.`;
         
         searchFeedbackEl.className = "search-feedback not-found";
         searchFeedbackEl.innerHTML = `
@@ -1312,7 +1445,7 @@
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
               <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
-            <span>تم التحقق من الحساب بنجاح (${filtered.length} نتيجة)</span>
+            <span>تم العثور على (${filtered.length}) نتيجة</span>
           `;
         } else {
           searchFeedbackEl.className = "search-feedback";
@@ -1345,7 +1478,7 @@
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
               </button>
-              ${isAdmin ? `
+              ${isOwner ? `
               <button 
                 type="button" 
                 class="btn-delete-user" 
@@ -1389,10 +1522,10 @@
       }
     });
 
-    /* التعامل مع النقر على بطاقات المستخدمين (نسخ أو حذف للمالك) */
+    /* التعامل مع النقر على بطاقات المستخدمين */
     usersListEl.addEventListener("click", async (e) => {
       const delBtn = e.target.closest(".btn-delete-user");
-      if (delBtn) {
+      if (delBtn && isOwner) {
         const delName = delBtn.getAttribute("data-delete-name");
         if (delName) deleteUser(delName);
         return;
@@ -1421,9 +1554,7 @@
       }
     });
 
-    /* =========================================================================
-       ميزة إضافة مستخدم جديد واحد تلو الآخر (Add New User)
-       ========================================================================= */
+    /* إضافة مستخدم جديد واحداً تلو الآخر */
     async function addNewUser() {
       if (!newUserInput) return;
       const raw = newUserInput.value.trim();
@@ -1432,7 +1563,6 @@
         return;
       }
 
-      // فحص هل الاسم موجود مسبقاً
       const norm = normalizeQuery(raw);
       const exists = currentUsers.some(u => normalizeQuery(u) === norm);
       if (exists) {
@@ -1453,7 +1583,7 @@
       searchInput.value = "";
       renderList("");
 
-      showToast(`✅ تمت إضافة "${raw}" بنجاح! الإجمالي الآن: ${currentUsers.length}`);
+      showToast(`✅ تمت إضافة "${raw}" بنجاح! الإجمالي: ${currentUsers.length}`);
 
       setTimeout(() => {
         const firstCard = usersListEl.firstElementChild;
@@ -1466,17 +1596,15 @@
 
     /* حذف مستخدم فردي */
     function deleteUser(name) {
-      if (!confirm(`هل أنت متأكد من حذف الحساب "${name}" من قائمة أركاديا؟`)) return;
+      if (!confirm(`هل أنت متأكد من حذف الحساب "${name}"؟`)) return;
       currentUsers = currentUsers.filter(u => u !== name);
       saveCurrentUsers();
       reindexUsers();
       renderList(searchInput.value);
-      showToast(`🗑️ تم حذف "${name}". الإجمالي الآن: ${currentUsers.length}`);
+      showToast(`🗑️ تم حذف "${name}". الإجمالي: ${currentUsers.length}`);
     }
 
-    /* =========================================================================
-       إدارة المالك الجماعية (Modal)
-       ========================================================================= */
+    /* إدارة القائمة الجماعية (Modal) */
     function openModal() {
       usersTextarea.value = currentUsers.join("\n");
       updateModalCount();
@@ -1502,7 +1630,7 @@
     cancelModalBtn.addEventListener("click", closeModal);
 
     loadSampleUsersBtn.addEventListener("click", () => {
-      if (confirm("هل ترغب في استعادة قائمة أركاديا الأصلية (217 عضواً)؟")) {
+      if (confirm("هل ترغب في استعادة قائمة أركاديا الأصلية؟")) {
         usersTextarea.value = DEFAULT_USERS.join("\n");
         updateModalCount();
       }
@@ -1524,95 +1652,41 @@
       reindexUsers();
       renderList(searchInput.value);
       closeModal();
-      showToast(`تم حفظ ${currentUsers.length} مستخدم بنجاح في سجل أركاديا!`);
+      showToast(`تم حفظ ${currentUsers.length} مستخدم بنجاح!`);
     });
 
     /* =========================================================================
-       توليد ونسخ رابط البحث المحدث تلقائياً لجميع الأجهزة
+       توليد ونسخ رابط صفحة البحث للجمهور
+       - الرابط يوجه الزائر مباشرة لصفحة البحث دون أي تسجيل دخول
        ========================================================================= */
-    shareLinkBtn.addEventListener("click", async () => {
-      try {
-        const hashData = await compressUsersList(currentUsers);
-        const liveUrl = window.location.origin + window.location.pathname + "#list=" + hashData;
-        await navigator.clipboard.writeText(liveUrl);
-        showToast("🔗 تم نسخ رابط البحث المحدث! (يفتح فوراً على أي هاتف أو جهاز بجميع التحديثات)");
-      } catch (err) {
-        const shortUrl = window.location.origin + window.location.pathname;
-        await navigator.clipboard.writeText(shortUrl);
-        showToast("تم نسخ الرابط المباشر بنجاح!");
-      }
-    });
-
-    /* =========================================================================
-       تنزيل ملف index.html المحدث لتحديث GitHub وجعل الرابط القصير دائم للجميع
-       ========================================================================= */
-    function downloadUpdatedHtml() {
-      try {
-        let html = document.documentElement.outerHTML;
-        const userJson = JSON.stringify(currentUsers);
-        
-        // استبدال مصفوفة DEFAULT_USERS بداخل كود الملف
-        const regex = /const DEFAULT_USERS\s*=\s*\[[\s\S]*?\];/;
-        if (regex.test(html)) {
-          html = html.replace(regex, `const DEFAULT_USERS = ${userJson};`);
+    if (shareSearchLinkBtn) {
+      shareSearchLinkBtn.addEventListener("click", async () => {
+        try {
+          const hashData = await compressUsersList(currentUsers);
+          const searchUrl = window.location.origin + window.location.pathname + "#search&list=" + hashData;
+          await navigator.clipboard.writeText(searchUrl);
+          showToast("🔗 تم نسخ رابط صفحة البحث للجمهور بنجاح!");
+        } catch (err) {
+          const fallbackUrl = window.location.origin + window.location.pathname + "#search";
+          await navigator.clipboard.writeText(fallbackUrl);
+          showToast("تم نسخ رابط صفحة البحث!");
         }
-        
-        const fullDoc = "<!DOCTYPE html>\n" + html;
-        const blob = new Blob([fullDoc], { type: "text/html;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "index.html";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        showToast("📥 تم تنزيل index.html المحدث! ارفعه على GitHub ليثبت للجميع على الرابط المباشر.");
-      } catch (err) {
-        console.error(err);
-        alert("حدث خطأ أثناء تنزيل الملف.");
-      }
-    }
-
-    if (downloadHtmlBtn) {
-      downloadHtmlBtn.addEventListener("click", downloadUpdatedHtml);
-    }
-
-    /* قفل وضع المالك */
-    if (exitAdminBtn) {
-      exitAdminBtn.addEventListener("click", () => {
-        localStorage.removeItem("arcadia_owner_unlocked");
-        if (window.location.hash.includes("admin")) {
-          history.replaceState(null, "", window.location.pathname + window.location.search);
-        }
-        initializeApp();
-        showToast("تم قفل لوحة المالك والعودة للوضع العام للزوار.");
       });
     }
 
     /* =========================================================================
-       التحميل المبدئي:
-       - الزوار: قراءة وبحث فقط بدون أي أدوات تعديل
-       - المالك: يتفعل عند النقر على Created by kanut أو الدخول برابط #admin
+       التحميل وإدارة العرض بين (تسجيل الدخول / لوحة المالك / صفحة البحث)
        ========================================================================= */
     async function initializeApp() {
       const hash = window.location.hash.toLowerCase();
 
-      // تنظيف أي بيانات قديمة كانت تحتفظ بالأسماء الـ 10 التجريبية
-      ["arcadia_users_store_v1", "arcadia_users_store_v2", "arcadia_users_store_v3", "arcadia_users_store_v4"].forEach(k => {
-        localStorage.removeItem(k);
-      });
+      // 1. تحديد هل الرابط المفتوح هو رابط البحث للجمهور
+      isSearchPage = hash.includes("search");
 
-      // التحقق من وضع المالك
-      if (hash.includes("admin")) {
-        localStorage.setItem("arcadia_owner_unlocked", "true");
-      }
-      isAdmin = hash.includes("admin") || localStorage.getItem("arcadia_owner_unlocked") === "true";
-
-      // تحميل القائمة الرسمية المعتمدة
+      // 2. تحميل قائمة المستخدمين
       currentUsers = [...DEFAULT_USERS];
 
-      // فحص هل المالك أضاف مستخدمين وحفظهم في هذا المتصفح
+      // فحص هل تم حفظ مستخدمين محلياً
       try {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
@@ -1625,50 +1699,60 @@
         console.warn(e);
       }
 
-      // دعم فك رابط البحث المحدث المباشر #list=...
+      // إذا كان الرابط يحتوي على قائمة مضغوطة (&list=...)
       if (hash && hash.includes("list=")) {
-        const params = new URLSearchParams(window.location.hash.substring(1));
-        const listData = params.get("list");
-        if (listData) {
-          const decompressed = await decompressUsersList(listData);
+        const listMatch = window.location.hash.match(/list=([^&]+)/);
+        if (listMatch && listMatch[1]) {
+          const decompressed = await decompressUsersList(listMatch[1]);
           if (Array.isArray(decompressed) && decompressed.length > 0) {
             currentUsers = decompressed;
-            saveCurrentUsers(); // حفظها تلقائياً على هذا الجهاز
+            saveCurrentUsers();
           }
         }
       }
 
-      // تصفية أية أسماء تجريبية قديمة نهائياً وبلا رجعة
+      // تصفية أية أسماء وهمية نهائياً
       currentUsers = currentUsers.filter(u => u && !DUMMY_NAMES.has(u));
 
-      // تطبيق عناصر واجهة المالك
-      if (isAdmin) {
-        if (adminActions) adminActions.style.display = "flex";
-        if (adminQuickAdd) adminQuickAdd.style.display = "block";
-        if (roleText) roleText.textContent = "لوحة إدارة الحسابات المعتمدة (المالك)";
-      } else {
+      // 3. التحقق من صلاحية المالك
+      const authed = (sessionStorage.getItem(AUTH_KEY) === "true" || localStorage.getItem(AUTH_KEY) === "true");
+      isOwner = authed && !isSearchPage;
+
+      // 4. تطبيق حالة الواجهة بدقة
+      if (isSearchPage) {
+        // --- وضع صفحة البحث العامة للجمهور ---
+        if (loginSection) loginSection.style.display = "none";
         if (adminActions) adminActions.style.display = "none";
         if (adminQuickAdd) adminQuickAdd.style.display = "none";
-        if (roleText) roleText.textContent = "تحقق من حسابك أو ابحث عن اسمك";
+        if (searchCardSection) searchCardSection.style.display = "block";
+        if (mainSection) mainSection.style.display = "block";
+        if (roleText) roleText.textContent = "ابحث عن اسمك";
         if (manageModal) manageModal.classList.remove("active");
+      } else if (isOwner) {
+        // --- وضع لوحة المالك (بعد إدخال الباسورد) ---
+        if (loginSection) loginSection.style.display = "none";
+        if (adminActions) adminActions.style.display = "flex";
+        if (adminQuickAdd) adminQuickAdd.style.display = "block";
+        if (searchCardSection) searchCardSection.style.display = "block";
+        if (mainSection) mainSection.style.display = "block";
+        if (roleText) roleText.textContent = "لوحة المالك (ARCADIA Owner)";
+      } else {
+        // --- وضع شاشة تسجيل الدخول (الرابط الرئيسي) ---
+        if (loginSection) loginSection.style.display = "block";
+        if (adminActions) adminActions.style.display = "none";
+        if (adminQuickAdd) adminQuickAdd.style.display = "none";
+        if (searchCardSection) searchCardSection.style.display = "none";
+        if (mainSection) mainSection.style.display = "none";
+        if (emptyStateEl) emptyStateEl.classList.remove("active");
+        if (roleText) roleText.textContent = "بوابة المالك";
+        if (passwordInput) setTimeout(() => passwordInput.focus(), 100);
       }
 
       reindexUsers();
-      renderList(searchInput.value || "");
+      if (isSearchPage || isOwner) {
+        renderList(searchInput.value || "");
+      }
     }
-
-    // النقر على Created by kanut يفتح للمالك وضع الإدارة فوراً وبدون تعقيد
-    document.querySelectorAll(".creator-credit").forEach(el => {
-      el.addEventListener("click", (e) => {
-        if (!isAdmin) {
-          e.preventDefault();
-          window.location.hash = "admin";
-          localStorage.setItem("arcadia_owner_unlocked", "true");
-          initializeApp();
-          showToast("تم تفعيل وضع المالك بنجاح!");
-        }
-      });
-    });
 
     window.addEventListener("hashchange", initializeApp);
     initializeApp();
