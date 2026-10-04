@@ -689,6 +689,124 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    
+    /* قسم إضافة مستخدم جديد خاص بالمالك */
+    .admin-quick-add-card {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--brand-accent);
+      border-radius: 18px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .quick-add-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .quick-add-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .quick-add-title svg {
+      color: var(--brand-accent);
+    }
+
+    .quick-add-badge {
+      font-size: 0.78rem;
+      background: var(--brand-glow);
+      color: var(--brand-accent);
+      padding: 0.2rem 0.65rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      border: 1px solid var(--brand-accent);
+    }
+
+    .quick-add-form {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .quick-add-input {
+      flex: 1;
+      padding: 0.85rem 1.15rem;
+      border: 1.5px solid var(--border-color);
+      background: var(--bg-body);
+      border-radius: 12px;
+      color: var(--text-main);
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .quick-add-input:focus {
+      border-color: var(--brand-accent);
+      box-shadow: 0 0 0 3px var(--brand-glow);
+      background: var(--bg-surface);
+    }
+
+    .quick-add-btn {
+      white-space: nowrap;
+      padding: 0.85rem 1.4rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .btn-delete-user {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-dim);
+      padding: 0.4rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-delete-user:hover {
+      color: var(--danger);
+      background: var(--danger-bg);
+      border-color: rgba(185, 28, 28, 0.2);
+    }
+
+    .newly-added {
+      animation: highlightPulse 2s ease;
+    }
+
+    @keyframes highlightPulse {
+      0% {
+        transform: scale(1.03);
+        border-color: var(--success);
+        box-shadow: 0 0 16px rgba(27, 135, 85, 0.35);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
     @media (max-width: 640px) {
       .brand-title {
         font-size: 2rem;
@@ -699,7 +817,19 @@
       }
       .admin-controls {
         width: 100%;
-        justify-content: space-between;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .admin-controls .btn {
+        flex: 1 1 auto;
+      }
+      .quick-add-form {
+        flex-direction: column;
+      }
+      .quick-add-btn {
+        width: 100%;
+        justify-content: center;
       }
       .top-bar {
         flex-wrap: wrap;
@@ -767,7 +897,7 @@
       <div>
         <span class="portal-badge" id="roleBadge">
           <span>✦</span>
-          <span id="roleText">بوابة التحقق من الحسابات المعتمدة</span>
+          <span id="roleText">تحقق من حسابك أو ابحث عن اسمك</span>
           <span>✦</span>
         </span>
       </div>
@@ -782,6 +912,38 @@
         </a>
       </div>
     </header>
+
+    <!-- بطاقة إضافة مستخدم جديد واحد تلو الآخر (خاص بالمالك) -->
+    <section id="adminQuickAdd" class="admin-quick-add-card" style="display: none;" aria-label="إضافة مستخدم جديد">
+      <div class="quick-add-header">
+        <div class="quick-add-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <line x1="20" y1="8" x2="20" y2="14"></line>
+            <line x1="23" y1="11" x2="17" y2="11"></line>
+          </svg>
+          <span>إضافة مستخدم جديد (Add New User)</span>
+        </div>
+        <span class="quick-add-badge">يُحدث القائمة والرابط تلقائياً</span>
+      </div>
+      <form id="quickAddForm" class="quick-add-form" onsubmit="event.preventDefault(); addNewUser();">
+        <input 
+          type="text" 
+          id="newUserInput" 
+          class="quick-add-input" 
+          placeholder="اكتب اسم الحساب الجديد هنا (مثال: @username)..." 
+          autocomplete="off"
+        >
+        <button type="submit" id="quickAddBtn" class="btn btn-share quick-add-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>إضافة الآن</span>
+        </button>
+      </form>
+    </section>
 
     <!-- بطاقة البحث السريع المباشر -->
     <section class="search-card" aria-label="قسم البحث">
@@ -878,13 +1040,13 @@
         <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.6rem;">
           الصق المستخدمين هنا (كل مستخدم بسطر منفصل، أو مفصولين بفاصلة):
         </p>
-        <textarea id="usersTextarea" class="form-textarea" placeholder="@user1&#10;@user2&#10;خالد أركاديا&#10;arcadia_fan"></textarea>
+        <textarea id="usersTextarea" class="form-textarea" placeholder="Kanut&#10;MD0&#10;AM_&#10;Select&#10;cinavie"></textarea>
       </div>
 
       <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-dim);">
         <span id="modalUsersCount">0 مستخدم مسجل</span>
         <button type="button" id="loadSampleUsersBtn" style="background: none; border: none; color: var(--brand-accent); cursor: pointer; text-decoration: underline; font-weight: 700;">
-          استرجاع القائمة النموذجية
+          استعادة القائمة الأصلية (217 عضو)
         </button>
       </div>
 
@@ -905,20 +1067,9 @@
 
   <script>
     /* القائمة النموذجية المبدئية */
-    const DEFAULT_USERS = [
-      "arcadia.plato",
-      "@arcadia_admin",
-      "خالد عبد الرحمن",
-      "سارة المنصور",
-      "faisal_gamer",
-      "نورة القحطاني",
-      "plato_champion",
-      "أحمد الشريف",
-      "laila_events",
-      "سلطان الغامدي"
-    ];
+    const DEFAULT_USERS = ["___he","__2U","__Rafah__","_7e","_AC2","_BAR","_KG","_MRu","_SCO","1B0D","1D_","1HJR","1R27","1S7","1SC","1Sherry","1so_","2_vv","_ST","078","0H0","0LN","0TR","0U7","10e_","121","144","2XA","3IW","3li08","4_e","47_","4oa","5O3_","5TF","5xdx","7__","7md","88_Anubis_88","8oi","8WH","8ZF","983","9lP","9Y4","a8q","ACG","AIG","Al2_","Asadd__","Bronzy","Bsh","bunkchem","bunkchem","Calavina","Coveted","D_Nu","DMR","DontTouchMe","DONV","Dxa","E_L_L_A","Ego","EME","F37","Fatima_109","firnosa2","fullav","FYX","h1_f","hajario","hamattu","HeIal","Hsa","Hunt","IC7","IHN","ihu9","IlZ","imr2","iSalma","J_B5","JIINY","Kanut","kn4n","l6l","LDX","Li5","LM0","m0rem","Mazin33km","MD0","MD79","MDD4","mnc","morg","Mr_Holmes","Mr_Raccoonn","msrh","Naa","Nabiiil0","naotoo","NFS","Nina__n7","NNF","NYN","O10","ONL","or_","oun","Pinkchanels","pt0l","R_2","R2Y","Riu","RRW_","S2M0","SALH","Sava","Sea","shabnamma","shwd","SI57","Sina","Sola","SSP","stop","Strigine","Surgeon","swesara","Swsu","sze","TFH","U4_","urea","VOlDS","vraerv","vrw_","vu_","W2N","WlN","WSK","wxssi","xer","yusra_","YCN","yyj","ZA1","zyl","AM_","c_n","waa","4SN","az__3d","E_L_L_A","txr8","caeIIe","t2c","flxg","ferrariii","_S_R","626","Bsoma","alaaj","Suv","vev","MGC","lNED","964","as_i7x","maryyline","Nsq","Rand501","1na","2r7","6x6","AM0W","ey_p","I16","iku","Nue","ses","Soy","1Rvo","MARlA","7jul_","Rnm","_YS","Nafea","2uq","ZZY","H55","EY2","F7P","M1M","BadazzzOP","_ELHM","iiRwan","G0F","3NJ","mishii","abo_nasef","EV3","oar","Rezee","Slak_osf","knu","650","E6_","EDT","Skafan","LLY1","Iufy","__4","Select","IA0","M07MED","cinavie"];
 
-    const STORAGE_KEY = "arcadia_users_store_v3";
+    const STORAGE_KEY = "arcadia_users_store_v5";
     const THEME_KEY = "arcadia_theme_mode";
 
     /* =========================================================================
@@ -1051,10 +1202,26 @@
     /* =========================================================================
        حالة التطبيق والقائمة
        ========================================================================= */
-    let currentUsers = [];
-    let isReadOnly = false;
+    /* =========================================================================
+       حالة التطبيق وإدارة القائمة
+       ========================================================================= */
+    const DUMMY_NAMES = new Set([
+      "arcadia.plato", "خالد عبد الرحمن", "omar.dev", "سارة المنصور", 
+      "ريم عبد الله", "فهد التميمي", "نورة الدوسري", "سلطان العتيبي", 
+      "ليلى الحربي", "محمد الشمري"
+    ]);
 
+    let currentUsers = [];
+    let isAdmin = false;
+
+    // عناصر الصفحة
     const adminActions = document.getElementById("adminActions");
+    const adminQuickAdd = document.getElementById("adminQuickAdd");
+    const newUserInput = document.getElementById("newUserInput");
+    const quickAddBtn = document.getElementById("quickAddBtn");
+    const downloadHtmlBtn = document.getElementById("downloadHtmlBtn");
+    const exitAdminBtn = document.getElementById("exitAdminBtn");
+
     const roleText = document.getElementById("roleText");
     const searchInput = document.getElementById("searchInput");
     const clearBtn = document.getElementById("clearBtn");
@@ -1066,7 +1233,7 @@
     const totalCountEl = document.getElementById("totalCount");
     const searchFeedbackEl = document.getElementById("searchFeedback");
 
-    // عناصر النافذة
+    // عناصر نافذة الإدارة الجماعية
     const manageModal = document.getElementById("manageModal");
     const openManageBtn = document.getElementById("openManageBtn");
     const closeManageBtn = document.getElementById("closeManageBtn");
@@ -1082,7 +1249,15 @@
     function showToast(msg) {
       toastMsg.textContent = msg;
       toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 3000);
+      setTimeout(() => toast.classList.remove("show"), 3500);
+    }
+
+    function saveCurrentUsers() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUsers));
+      } catch (e) {
+        console.warn("Storage error", e);
+      }
     }
 
     let indexedUsers = [];
@@ -1095,6 +1270,7 @@
       totalCountEl.textContent = indexedUsers.length;
     }
 
+    /* عرض القائمة وتحديث نتائج البحث */
     function renderList(query = "") {
       const normQ = normalizeQuery(query);
       const isFiltering = normQ.length > 0;
@@ -1156,18 +1332,34 @@
               <span class="user-idx">${item.index}</span>
               <span class="user-name" title="${escapeHtml(item.original)}">${highlighted}</span>
             </div>
-            <button 
-              type="button" 
-              class="copy-btn" 
-              title="نسخ اسم المستخدم" 
-              aria-label="نسخ ${escapeHtml(item.original)}"
-              data-name="${escapeHtml(item.original)}"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-              </svg>
-            </button>
+            <div class="card-actions">
+              <button 
+                type="button" 
+                class="copy-btn" 
+                title="نسخ اسم المستخدم" 
+                aria-label="نسخ ${escapeHtml(item.original)}"
+                data-name="${escapeHtml(item.original)}"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+              ${isAdmin ? `
+              <button 
+                type="button" 
+                class="btn-delete-user" 
+                title="حذف هذا العضو من القائمة" 
+                aria-label="حذف ${escapeHtml(item.original)}"
+                data-delete-name="${escapeHtml(item.original)}"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+              ` : ''}
+            </div>
           `;
           fragment.appendChild(li);
         });
@@ -1197,7 +1389,15 @@
       }
     });
 
+    /* التعامل مع النقر على بطاقات المستخدمين (نسخ أو حذف للمالك) */
     usersListEl.addEventListener("click", async (e) => {
+      const delBtn = e.target.closest(".btn-delete-user");
+      if (delBtn) {
+        const delName = delBtn.getAttribute("data-delete-name");
+        if (delName) deleteUser(delName);
+        return;
+      }
+
       const btn = e.target.closest(".copy-btn");
       if (!btn) return;
       const text = btn.getAttribute("data-name");
@@ -1222,7 +1422,60 @@
     });
 
     /* =========================================================================
-       إدارة المالك
+       ميزة إضافة مستخدم جديد واحد تلو الآخر (Add New User)
+       ========================================================================= */
+    async function addNewUser() {
+      if (!newUserInput) return;
+      const raw = newUserInput.value.trim();
+      if (!raw) {
+        newUserInput.focus();
+        return;
+      }
+
+      // فحص هل الاسم موجود مسبقاً
+      const norm = normalizeQuery(raw);
+      const exists = currentUsers.some(u => normalizeQuery(u) === norm);
+      if (exists) {
+        showToast(`⚠️ الحساب "${raw}" موجود بالفعل في القائمة!`);
+        searchInput.value = raw;
+        renderList(raw);
+        newUserInput.value = "";
+        return;
+      }
+
+      // إضافة المستخدم في مقدمة القائمة
+      currentUsers.unshift(raw);
+      saveCurrentUsers();
+      reindexUsers();
+
+      newUserInput.value = "";
+      newUserInput.focus();
+      searchInput.value = "";
+      renderList("");
+
+      showToast(`✅ تمت إضافة "${raw}" بنجاح! الإجمالي الآن: ${currentUsers.length}`);
+
+      setTimeout(() => {
+        const firstCard = usersListEl.firstElementChild;
+        if (firstCard) {
+          firstCard.classList.add("newly-added");
+          firstCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 100);
+    }
+
+    /* حذف مستخدم فردي */
+    function deleteUser(name) {
+      if (!confirm(`هل أنت متأكد من حذف الحساب "${name}" من قائمة أركاديا؟`)) return;
+      currentUsers = currentUsers.filter(u => u !== name);
+      saveCurrentUsers();
+      reindexUsers();
+      renderList(searchInput.value);
+      showToast(`🗑️ تم حذف "${name}". الإجمالي الآن: ${currentUsers.length}`);
+    }
+
+    /* =========================================================================
+       إدارة المالك الجماعية (Modal)
        ========================================================================= */
     function openModal() {
       usersTextarea.value = currentUsers.join("\n");
@@ -1239,17 +1492,17 @@
       const lines = usersTextarea.value
         .split(/[\n,]+/)
         .map(s => s.trim())
-        .filter(s => s.length > 0);
+        .filter(s => s.length > 0 && !DUMMY_NAMES.has(s));
       modalUsersCount.textContent = `${lines.length} مستخدم مسجل`;
     }
 
     usersTextarea.addEventListener("input", updateModalCount);
-    openManageBtn.addEventListener("click", openModal);
+    if (openManageBtn) openManageBtn.addEventListener("click", openModal);
     closeManageBtn.addEventListener("click", closeModal);
     cancelModalBtn.addEventListener("click", closeModal);
 
     loadSampleUsersBtn.addEventListener("click", () => {
-      if (confirm("هل ترغب في استرجاع القائمة النموذجية لأركاديا؟")) {
+      if (confirm("هل ترغب في استعادة قائمة أركاديا الأصلية (217 عضواً)؟")) {
         usersTextarea.value = DEFAULT_USERS.join("\n");
         updateModalCount();
       }
@@ -1259,7 +1512,7 @@
       const parsed = usersTextarea.value
         .split(/[\n,]+/)
         .map(s => s.trim())
-        .filter(s => s.length > 0);
+        .filter(s => s.length > 0 && !DUMMY_NAMES.has(s));
 
       if (parsed.length === 0) {
         alert("يرجى إدخال اسم مستخدم واحد على الأقل.");
@@ -1267,12 +1520,7 @@
       }
 
       currentUsers = parsed;
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUsers));
-      } catch (e) {
-        console.warn("Storage error", e);
-      }
-
+      saveCurrentUsers();
       reindexUsers();
       renderList(searchInput.value);
       closeModal();
@@ -1280,87 +1528,149 @@
     });
 
     /* =========================================================================
-       توليد رابط المشاركة للقراءة فقط للجمهور
+       توليد ونسخ رابط البحث المحدث تلقائياً لجميع الأجهزة
        ========================================================================= */
     shareLinkBtn.addEventListener("click", async () => {
-      if (currentUsers.length === 0) {
-        alert("لا توجد قائمة مستخدمين لمشاركتها حالياً.");
-        return;
-      }
-
-      shareLinkBtn.disabled = true;
-      const originalText = shareLinkBtn.innerHTML;
-      shareLinkBtn.innerHTML = `<span>جاري تجهيز الرابط...</span>`;
-
       try {
-        const compressed = await compressUsersList(currentUsers);
-        const baseUrl = window.location.origin + window.location.pathname;
-        const shareUrl = `${baseUrl}#list=${compressed}&mode=readonly`;
-
-        await navigator.clipboard.writeText(shareUrl);
-        showToast("تم نسخ رابط المشاركة (للبحث والاستعلام فقط) بنجاح!");
+        const hashData = await compressUsersList(currentUsers);
+        const liveUrl = window.location.origin + window.location.pathname + "#list=" + hashData;
+        await navigator.clipboard.writeText(liveUrl);
+        showToast("🔗 تم نسخ رابط البحث المحدث! (يفتح فوراً على أي هاتف أو جهاز بجميع التحديثات)");
       } catch (err) {
-        console.error(err);
-        alert("حدث خطأ أثناء نسخ الرابط.");
-      } finally {
-        shareLinkBtn.disabled = false;
-        shareLinkBtn.innerHTML = originalText;
+        const shortUrl = window.location.origin + window.location.pathname;
+        await navigator.clipboard.writeText(shortUrl);
+        showToast("تم نسخ الرابط المباشر بنجاح!");
       }
     });
 
     /* =========================================================================
-       التحميل المبدئي وفحص وضع الزائر vs المالك
+       تنزيل ملف index.html المحدث لتحديث GitHub وجعل الرابط القصير دائم للجميع
+       ========================================================================= */
+    function downloadUpdatedHtml() {
+      try {
+        let html = document.documentElement.outerHTML;
+        const userJson = JSON.stringify(currentUsers);
+        
+        // استبدال مصفوفة DEFAULT_USERS بداخل كود الملف
+        const regex = /const DEFAULT_USERS\s*=\s*\[[\s\S]*?\];/;
+        if (regex.test(html)) {
+          html = html.replace(regex, `const DEFAULT_USERS = ${userJson};`);
+        }
+        
+        const fullDoc = "<!DOCTYPE html>\n" + html;
+        const blob = new Blob([fullDoc], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "index.html";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast("📥 تم تنزيل index.html المحدث! ارفعه على GitHub ليثبت للجميع على الرابط المباشر.");
+      } catch (err) {
+        console.error(err);
+        alert("حدث خطأ أثناء تنزيل الملف.");
+      }
+    }
+
+    if (downloadHtmlBtn) {
+      downloadHtmlBtn.addEventListener("click", downloadUpdatedHtml);
+    }
+
+    /* قفل وضع المالك */
+    if (exitAdminBtn) {
+      exitAdminBtn.addEventListener("click", () => {
+        localStorage.removeItem("arcadia_owner_unlocked");
+        if (window.location.hash.includes("admin")) {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
+        initializeApp();
+        showToast("تم قفل لوحة المالك والعودة للوضع العام للزوار.");
+      });
+    }
+
+    /* =========================================================================
+       التحميل المبدئي:
+       - الزوار: قراءة وبحث فقط بدون أي أدوات تعديل
+       - المالك: يتفعل عند النقر على Created by kanut أو الدخول برابط #admin
        ========================================================================= */
     async function initializeApp() {
-      const hash = window.location.hash;
-      let loadedFromHash = false;
+      const hash = window.location.hash.toLowerCase();
 
+      // تنظيف أي بيانات قديمة كانت تحتفظ بالأسماء الـ 10 التجريبية
+      ["arcadia_users_store_v1", "arcadia_users_store_v2", "arcadia_users_store_v3", "arcadia_users_store_v4"].forEach(k => {
+        localStorage.removeItem(k);
+      });
+
+      // التحقق من وضع المالك
+      if (hash.includes("admin")) {
+        localStorage.setItem("arcadia_owner_unlocked", "true");
+      }
+      isAdmin = hash.includes("admin") || localStorage.getItem("arcadia_owner_unlocked") === "true";
+
+      // تحميل القائمة الرسمية المعتمدة
+      currentUsers = [...DEFAULT_USERS];
+
+      // فحص هل المالك أضاف مستخدمين وحفظهم في هذا المتصفح
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            currentUsers = parsed;
+          }
+        }
+      } catch (e) {
+        console.warn(e);
+      }
+
+      // دعم فك رابط البحث المحدث المباشر #list=...
       if (hash && hash.includes("list=")) {
-        const params = new URLSearchParams(hash.substring(1));
+        const params = new URLSearchParams(window.location.hash.substring(1));
         const listData = params.get("list");
-        const mode = params.get("mode");
-
         if (listData) {
           const decompressed = await decompressUsersList(listData);
           if (Array.isArray(decompressed) && decompressed.length > 0) {
             currentUsers = decompressed;
-            loadedFromHash = true;
-
-            // وضع القراءة فقط للزوار:
-            if (mode === "readonly") {
-              isReadOnly = true;
-              if (adminActions) adminActions.style.display = "none";
-              if (roleText) roleText.textContent = "بوابة استعلام المستخدمين الرسمية";
-              if (manageModal) manageModal.remove(); // إزالة نافذة الإدارة تماماً
-            }
+            saveCurrentUsers(); // حفظها تلقائياً على هذا الجهاز
           }
         }
       }
 
-      if (!loadedFromHash) {
-        try {
-          const stored = localStorage.getItem(STORAGE_KEY);
-          if (stored) {
-            const parsed = JSON.parse(stored);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              currentUsers = parsed;
-            }
-          }
-        } catch (e) {
-          console.warn(e);
-        }
+      // تصفية أية أسماء تجريبية قديمة نهائياً وبلا رجعة
+      currentUsers = currentUsers.filter(u => u && !DUMMY_NAMES.has(u));
 
-        if (!currentUsers || currentUsers.length === 0) {
-          currentUsers = [...DEFAULT_USERS];
-        }
-
+      // تطبيق عناصر واجهة المالك
+      if (isAdmin) {
+        if (adminActions) adminActions.style.display = "flex";
+        if (adminQuickAdd) adminQuickAdd.style.display = "block";
         if (roleText) roleText.textContent = "لوحة إدارة الحسابات المعتمدة (المالك)";
+      } else {
+        if (adminActions) adminActions.style.display = "none";
+        if (adminQuickAdd) adminQuickAdd.style.display = "none";
+        if (roleText) roleText.textContent = "تحقق من حسابك أو ابحث عن اسمك";
+        if (manageModal) manageModal.classList.remove("active");
       }
 
       reindexUsers();
-      renderList("");
+      renderList(searchInput.value || "");
     }
 
+    // النقر على Created by kanut يفتح للمالك وضع الإدارة فوراً وبدون تعقيد
+    document.querySelectorAll(".creator-credit").forEach(el => {
+      el.addEventListener("click", (e) => {
+        if (!isAdmin) {
+          e.preventDefault();
+          window.location.hash = "admin";
+          localStorage.setItem("arcadia_owner_unlocked", "true");
+          initializeApp();
+          showToast("تم تفعيل وضع المالك بنجاح!");
+        }
+      });
+    });
+
+    window.addEventListener("hashchange", initializeApp);
     initializeApp();
   </script>
 </body>
