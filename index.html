@@ -11,31 +11,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* المتغيرات اللونية لمطابقة هوية ARCADIA بالكامل - لون الخلفية مطابق 100% لخلفية الصورة الأصلية */
+    /* المتغيرات اللونية لمطابقة هوية ARCADIA بالكامل - لون عاجي فاتح مقارب للأبيض تماماً مثل الصورة */
     :root[data-theme="cream"] {
-      --bg-body: #f6ece2;
+      --bg-body: #faf7f2;
       --bg-surface: #ffffff;
-      --bg-surface-soft: #ede0d4;
-      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-surface-soft: #f2ede4;
+      --bg-card: rgba(255, 255, 255, 0.95);
       --bg-card-hover: #ffffff;
-      --border-color: rgba(43, 38, 35, 0.12);
+      --border-color: rgba(43, 38, 35, 0.09);
       --border-accent: #2b2623;
       --text-main: #231f1d;
       --text-muted: #6e645e;
       --text-dim: #948880;
       --brand-charcoal: #231f1d;
       --brand-accent: #8c7355;
-      --brand-glow: rgba(140, 115, 85, 0.18);
+      --brand-glow: rgba(140, 115, 85, 0.14);
       --success: #1b8755;
       --success-bg: rgba(27, 135, 85, 0.12);
       --danger: #b91c1c;
       --danger-bg: rgba(185, 28, 28, 0.1);
-      --highlight-bg: rgba(140, 115, 85, 0.22);
+      --highlight-bg: rgba(140, 115, 85, 0.2);
       --highlight-text: #231f1d;
-      --shadow-sm: 0 2px 8px rgba(43, 38, 35, 0.05);
-      --shadow-md: 0 10px 25px -4px rgba(43, 38, 35, 0.08);
-      --shadow-lg: 0 20px 40px -10px rgba(43, 38, 35, 0.12);
-      --card-line: #dfd6c8;
+      --shadow-sm: 0 2px 8px rgba(43, 38, 35, 0.04);
+      --shadow-md: 0 10px 25px -4px rgba(43, 38, 35, 0.06);
+      --shadow-lg: 0 20px 40px -10px rgba(43, 38, 35, 0.09);
+      --card-line: #e8e0d5;
     }
 
     :root[data-theme="dark"] {
@@ -184,10 +184,9 @@
       height: auto;
       display: block;
       margin: 0 auto;
-      border-radius: 12px;
-      /* تطابق فوري مع الخلفية بدون أي فواصل */
-      mix-blend-mode: multiply;
-      filter: contrast(1.02);
+      border: none;
+      outline: none;
+      /* بدون multiply لتظهر ألوان الصورة الأصلية الفاتحة الشبه بيضاء تماماً بدون أي دكانة */
       transition: transform 0.3s ease;
     }
 
@@ -196,9 +195,9 @@
     }
 
     :root[data-theme="dark"] .brand-photo-logo {
-      mix-blend-mode: normal;
-      background-color: #f6ece2;
+      background-color: var(--bg-body);
       padding: 10px;
+      border-radius: 12px;
       box-shadow: var(--shadow-md);
     }
 
