@@ -170,63 +170,61 @@
       position: relative;
     }
 
-    /* شعار أركاديا الدائري المتناسق */
+    /* شعار أركاديا الأصلي بتفاصيله الدقيقة وبدون إطارات مقيدة */
     .logo-container {
-      width: 140px;
-      height: 140px;
-      margin: 0 auto 1.25rem;
-      background: var(--bg-body);
-      border: 2px solid var(--border-color);
-      border-radius: 50%;
-      padding: 10px;
-      box-shadow: var(--shadow-md);
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto 0.75rem;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .logo-container::after {
-      content: '';
-      position: absolute;
-      inset: -5px;
-      border-radius: 50%;
-      border: 1px dashed var(--brand-accent);
-      opacity: 0.6;
-      pointer-events: none;
     }
 
     .logo-svg {
       width: 100%;
-      height: 100%;
+      height: auto;
+      max-height: 290px;
+      overflow: visible;
       fill: var(--text-main);
       stroke: var(--text-main);
     }
 
-    .brand-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2rem, 5vw, 2.75rem);
-      font-weight: 800;
-      letter-spacing: 0.28em;
-      text-indent: 0.28em;
-      color: var(--text-main);
-      margin-bottom: 0.2rem;
-      text-transform: uppercase;
+    /* توقيع المطور (Created by kanut) الأنيق */
+    .creator-credit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+      padding: 0.4rem 1.1rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+      text-decoration: none;
     }
 
-    .brand-group {
+    .creator-credit:hover {
+      border-color: var(--brand-accent);
+      color: var(--text-main);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .creator-credit .author-name {
       font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.45em;
-      text-indent: 0.45em;
-      color: var(--brand-accent);
       font-weight: 700;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+      color: var(--text-main);
+      letter-spacing: 0.1em;
+    }
+
+    .creator-credit .star {
+      color: var(--brand-accent);
+      font-size: 0.7rem;
     }
 
     .brand-group::before, .brand-group::after {
@@ -742,71 +740,107 @@
 
     <!-- ترويسة هوية ARCADIA GROUP الفاخرة المعتمدة على صور الحساب -->
     <header class="brand-hero">
-      <!-- شعار أركاديا الفلكي المستوحى من الشعار الرسمي -->
+      <!-- شعار أركاديا الفلكي المستطرد والمطابق بدقة تامة للصورة الرسمية -->
       <div class="logo-container" aria-label="شعار ARCADIA GROUP">
-        <svg class="logo-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-          <!-- نصف شمس بأشعة شمسية منحوتة في الجانب الأيسر -->
-          <g transform="translate(200, 200)">
-            <!-- أشعة الشمس المتوهجة (يسار) -->
-            <path d="M -20 -85 L -45 -115 L -35 -80 Z" fill="currentColor"/>
-            <path d="M -55 -65 L -95 -85 L -65 -50 Z" fill="currentColor"/>
-            <path d="M -75 -30 L -120 -35 L -80 -15 Z" fill="currentColor"/>
-            <path d="M -80 15 L -120 35 L -75 30 Z" fill="currentColor"/>
-            <path d="M -65 50 L -95 85 L -55 65 Z" fill="currentColor"/>
-            <path d="M -35 80 L -45 115 L -20 85 Z" fill="currentColor"/>
+        <svg class="logo-svg" viewBox="0 0 500 580" xmlns="http://www.w3.org/2000/svg">
+          <g fill="currentColor" stroke="currentColor">
+            
+            <!-- السلسلة العلوية من النقاط والنجمتين -->
+            <circle cx="250" cy="52" r="3" stroke="none"/>
+            <circle cx="250" cy="74" r="2.5" stroke="none"/>
+            <!-- النجمة العلوية الأكبر -->
+            <path d="M 250,86 Q 250,97 253,97 Q 250,97 250,108 Q 250,97 247,97 Q 250,97 250,86 Z" stroke="none"/>
 
-            <!-- أشعة لهب متموجة إضافية -->
-            <path d="M -38 -40 Q -70 -50 -55 -20 Z" fill="currentColor" opacity="0.8"/>
-            <path d="M -48 10 Q -75 25 -40 38 Z" fill="currentColor" opacity="0.8"/>
-
-            <!-- حافة نصف الشمس الدائرية -->
-            <path d="M 0 -80 A 80 80 0 0 0 0 80 Z" fill="none" stroke="currentColor" stroke-width="4"/>
-            <path d="M 0 -72 A 72 72 0 0 0 0 72 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3, 4"/>
+            <!-- النجمة الصغيرة على يسار القمة -->
+            <path d="M 224,103 Q 224,111 227,111 Q 224,111 224,119 Q 224,111 221,111 Q 224,111 224,103 Z" stroke="none"/>
 
             <!-- المدار الدائري المنقط جهة اليمين -->
-            <path d="M 0 -95 A 95 95 0 0 1 0 95" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="4, 6"/>
+            <path d="M 250,110 A 110,110 0 0,1 250,330" fill="none" stroke-width="2.5" stroke-dasharray="0.1, 9.5" stroke-linecap="round"/>
 
-            <!-- النجوم والنجيمات الفلكية (Sparkles) -->
-            <!-- نجمة صغيرة علوية يمين -->
-            <path d="M 50 -60 Q 50 -48 57 -48 Q 50 -48 50 -36 Q 50 -48 43 -48 Q 50 -48 50 -60 Z" fill="currentColor"/>
-            <!-- نجمة وسطى يمين -->
-            <path d="M 70 5 Q 70 18 78 18 Q 70 18 70 31 Q 70 18 62 18 Q 70 18 70 5 Z" fill="currentColor"/>
-            <!-- نجمة سفلية يمين -->
-            <path d="M 45 70 Q 45 80 52 80 Q 45 80 45 90 Q 45 80 38 80 Q 45 80 45 70 Z" fill="currentColor"/>
-            <!-- نجمة صغيرة علوية يسار -->
-            <path d="M -35 -95 Q -35 -88 -30 -88 Q -35 -88 -35 -81 Q -35 -88 -40 -88 Q -35 -88 -35 -95 Z" fill="currentColor"/>
+            <!-- النجوم الصغيرة داخل المدار جهة اليمين -->
+            <!-- نجمة علوية يمين المدار -->
+            <path d="M 292,176 Q 292,183 295,183 Q 292,183 292,190 Q 292,183 289,183 Q 292,183 292,176 Z" stroke="none"/>
+            <!-- نقطة صغيرة قرب رأس البوصلة -->
+            <circle cx="264" cy="156" r="1.8" stroke="none"/>
+            <!-- نجمة سفلية يمين المدار -->
+            <path d="M 290,278 Q 290,285 293,285 Q 290,285 290,292 Q 290,285 287,285 Q 290,285 290,278 Z" stroke="none"/>
+            <circle cx="264" cy="302" r="2" stroke="none"/>
 
-            <!-- نقاط مسار المدار -->
-            <circle cx="0" cy="-120" r="3.5" fill="currentColor"/>
-            <circle cx="0" cy="-135" r="2.5" fill="currentColor"/>
-            <circle cx="0" cy="120" r="3.5" fill="currentColor"/>
-            <circle cx="0" cy="135" r="2.5" fill="currentColor"/>
+            <!-- نقاط متناثرة يسار الشمس -->
+            <circle cx="150" cy="235" r="2.2" stroke="none"/>
+            <circle cx="180" cy="318" r="1.8" stroke="none"/>
+            <circle cx="210" cy="328" r="1.8" stroke="none"/>
 
-            <!-- نجمة البوصلة الرباعية الفخمة بالمنتصف -->
-            <!-- الرأس العلوي الطويل -->
-            <polygon points="0,0 0,-150 14,-20" fill="currentColor"/>
-            <polygon points="0,0 0,-150 -14,-20" fill="currentColor" opacity="0.35"/>
+            <!-- نصف دائرة الشمس وخطوطها الداخلية (يسار) -->
+            <path d="M 250,165 A 55,55 0 0,0 250,275 Z" fill="none" stroke-width="2.2"/>
+            <path d="M 250,172 A 48,48 0 0,0 250,268" fill="none" stroke-width="1.2" stroke-dasharray="2.5, 3.5"/>
 
-            <!-- الرأس السفلي الطويل -->
-            <polygon points="0,0 0,150 -14,20" fill="currentColor"/>
-            <polygon points="0,0 0,150 14,20" fill="currentColor" opacity="0.35"/>
+            <!-- أشعة الشمس المتموجة والمثلثة (يسار) -->
+            <path d="M 235,166 C 220,135 200,140 182,130 C 195,152 205,155 218,172 Z" stroke="none"/>
+            <path d="M 215,174 C 185,150 170,165 152,160 C 172,175 180,185 200,192 Z" stroke="none"/>
+            <path d="M 198,194 C 160,185 150,200 132,205 C 158,212 170,215 195,215 Z" stroke="none"/>
+            <path d="M 195,218 C 160,225 152,240 138,255 C 165,248 175,242 198,238 Z" stroke="none"/>
+            <path d="M 200,240 C 175,255 170,275 160,298 C 182,282 192,275 210,258 Z" stroke="none"/>
+            <path d="M 215,260 C 198,285 205,305 205,328 C 220,305 228,290 236,274 Z" stroke="none"/>
 
-            <!-- الرأس الأيمن -->
-            <polygon points="0,0 90,0 15,12" fill="currentColor"/>
-            <polygon points="0,0 90,0 15,-12" fill="currentColor" opacity="0.35"/>
+            <!-- أشعة متموجة دقيقة إضافية بين الأشعة الرئيسية -->
+            <path d="M 226,170 Q 200,158 190,145 Q 210,166 220,175 Z" stroke="none" opacity="0.8"/>
+            <path d="M 204,188 Q 175,182 165,178 Q 188,192 198,198 Z" stroke="none" opacity="0.8"/>
+            <path d="M 196,228 Q 170,238 158,248 Q 182,238 198,232 Z" stroke="none" opacity="0.8"/>
+            <path d="M 208,252 Q 192,275 185,290 Q 205,272 216,260 Z" stroke="none" opacity="0.8"/>
 
-            <!-- الرأس الأيسر -->
-            <polygon points="0,0 -90,0 -15,-12" fill="currentColor"/>
-            <polygon points="0,0 -90,0 -15,12" fill="currentColor" opacity="0.35"/>
+            <!-- نجمة البوصلة المركزية المنحوتة بنصف مظلل ونصف داكن -->
+            <!-- الرأس الشمالي الطويل -->
+            <polygon points="250,220 250,118 244,216" stroke="none"/>
+            <polygon points="250,220 250,118 256,216" stroke="none" opacity="0.4"/>
 
-            <!-- قلب النجمة المركزي -->
-            <circle cx="0" cy="0" r="5" fill="currentColor"/>
+            <!-- الرأس الجنوبي الطويل -->
+            <polygon points="250,220 250,322 256,224" stroke="none"/>
+            <polygon points="250,220 250,322 244,224" stroke="none" opacity="0.4"/>
+
+            <!-- الرأس الشرقي (اليمين) -->
+            <polygon points="250,220 326,220 254,214" stroke="none"/>
+            <polygon points="250,220 326,220 254,226" stroke="none" opacity="0.4"/>
+
+            <!-- الرأس الغربي (اليسار) -->
+            <polygon points="250,220 216,220 246,226" stroke="none"/>
+            <polygon points="250,220 216,220 246,214" stroke="none" opacity="0.4"/>
+
+            <!-- الشوكة المائلة الشمالية الشرقية (North-East Spike) -->
+            <polygon points="250,220 278,188 253,212" stroke="none"/>
+            <polygon points="250,220 278,188 259,218" stroke="none" opacity="0.4"/>
+
+            <!-- الشوكة المائلة الجنوبية الشرقية (South-East Spike) -->
+            <polygon points="250,220 280,250 258,222" stroke="none"/>
+            <polygon points="250,220 280,250 252,228" stroke="none" opacity="0.4"/>
+
+            <!-- السلسلة السفلية من النجوم والنقاط -->
+            <!-- النجمة السفلية تحت رأس البوصلة -->
+            <path d="M 250,332 Q 250,341 253,341 Q 250,341 250,350 Q 250,341 247,341 Q 250,341 250,332 Z" stroke="none"/>
+
+            <!-- خط النص: ARCADIA -->
+            <text x="250" y="420" font-family="'Cinzel', serif" font-size="62" font-weight="700" letter-spacing="0.22em" text-anchor="middle" stroke="none">ARCADIA</text>
+
+            <!-- خط GROUP مع الشرطتين والنجوم -->
+            <!-- الخط الأيسر ونجمته -->
+            <line x1="88" y1="452" x2="148" y2="452" stroke-width="1.8"/>
+            <path d="M 152,447 Q 152,452 157,452 Q 152,452 152,457 Q 152,452 147,452 Q 152,452 152,447 Z" stroke="none"/>
+
+            <!-- كلمة GROUP -->
+            <text x="250" y="460" font-family="'Cinzel', serif" font-size="22" font-weight="700" letter-spacing="0.46em" text-anchor="middle" stroke="none">GROUP</text>
+
+            <!-- الخط الأيمن ونجمته -->
+            <path d="M 348,447 Q 348,452 353,452 Q 348,452 348,457 Q 348,452 343,452 Q 348,452 348,447 Z" stroke="none"/>
+            <line x1="352" y1="452" x2="412" y2="452" stroke-width="1.8"/>
+
+            <!-- الزخرفة السفلية المتدلية -->
+            <path d="M 250,476 Q 250,486 254,486 Q 250,486 250,496 Q 250,486 246,486 Q 250,486 250,476 Z" stroke="none"/>
+            <circle cx="250" cy="505" r="2" stroke="none"/>
+            <circle cx="250" cy="516" r="2.5" stroke="none"/>
+            <circle cx="250" cy="530" r="3.5" stroke="none"/>
           </g>
         </svg>
       </div>
-
-      <h1 class="brand-title">ARCADIA</h1>
-      <div class="brand-group">GROUP</div>
       
       <div class="brand-tags">
         <span>Events</span>
@@ -822,6 +856,16 @@
           <span id="roleText">بوابة التحقق من الحسابات المعتمدة</span>
           <span>✦</span>
         </span>
+      </div>
+
+      <!-- توقيع المطور الأنيق في الترويسة -->
+      <div>
+        <a href="https://github.com/kanutx0" target="_blank" rel="noopener noreferrer" class="creator-credit" title="المطور">
+          <span class="star">✦</span>
+          <span>Created by</span>
+          <span class="author-name">kanut</span>
+          <span class="star">✦</span>
+        </a>
       </div>
     </header>
 
@@ -885,10 +929,18 @@
       </ul>
     </main>
 
-    <!-- التذييل -->
+    <!-- التذييل مع توقيع المطور -->
     <footer>
       <div class="footer-logo">ARCADIA GROUP</div>
       <p>Where the fun never ends &bull; جميع الحقوق محفوظة</p>
+      <div>
+        <a href="https://github.com/kanutx0" target="_blank" rel="noopener noreferrer" class="creator-credit" style="margin-top: 0.85rem;" title="حساب المطور">
+          <span class="star">✦</span>
+          <span>Designed & Built by</span>
+          <span class="author-name">kanut</span>
+          <span class="star">✦</span>
+        </a>
+      </div>
     </footer>
   </div>
 
